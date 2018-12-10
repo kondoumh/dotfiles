@@ -26,7 +26,7 @@
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
-;; disable startup
+;; disable startup screen
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
 
@@ -76,7 +76,7 @@
 ;; sytem-time-locale
 (setq system-time-locale "C")
 
-;; ファイル名文字化け対応
+;; file name encoding
 (require 'ucs-normalize)
 (setq file-name-coding-system 'utf-8-hfs)
 (setq locale-coding-system 'utf-8-hfs)
@@ -187,7 +187,7 @@
 (recentf-mode 1)
 (setq recentf-max-menu-items 20)
 (setq recentf-max-saved-items 20)
-;;; recent files�
+;;; recent files
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 ;;; show recent files list on startup
 (add-hook 'after-init-hook (lambda()
@@ -221,8 +221,6 @@
 (setq org-todo-keywords '((type "TODO(t)" "DOING(i)" "|" "DONE(d)" "SOMEDAY(s)" "WON'T(w)")))
 (setq org-directory "~/Dropbox/org")
 (setq org-agenda-files '("~/Dropbox/org/todo.org"))
-(setq org-mobile-inbox-for-pull "~/Dropbox/mobileorg.org")
-(setq org-mobile-directory "~/Dropbox/アプリ/MobileOrg")
 
 (setq org-capture-templates
    '(("t" "Todo" entry (file+headline "~/Dropbox/org/todo.org" "Tasks") "* TODO %?n %in %a")
@@ -252,32 +250,6 @@
 
 ;; typescript-mode
 (require 'typescript-mode)
-
-;; cofee-mode
-(require 'coffee-mode)
-(autoload 'coffee-mode "coffee-mode" "Major mode for editing CoffeeScript." t)
-(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
-(defun coffee-custom ()
-  "coffee-mode-hook"
-  (and (set (make-local-variable 'tab-width) 2)
-       (set (make-local-variable 'coffee-tab-width) 2))
-  )
-(add-hook 'coffee-mode-hook
-  '(lambda() (coffee-custom)))
-
-;; go-mode
-;(require 'go-mode-load)
-;(add-hook 'go-mode-hook
-;  '(lambda()
-;    (setq c-basic-offset 4)
-;    (setq indent-tabs-mode t)
-;	(setq tab-width 2)
-;    (local-set-key (kbd "M-.") 'godef-jump)
-;    (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
-;    (local-set-key (kbd "C-c i") 'go-goto-imports)
-;    (local-set-key (kbd "C-c d") 'godoc)))
-;(add-hook 'before-save-hook 'gofmt-before-save)
 
 ;; backslash
 (define-key global-map [?\M-¥] "\\")
@@ -429,11 +401,6 @@
    (insert (format-time-string format))))
 (define-key global-map "\C-cd" `insert-date)
 
-;; ChangeLog template
-(defun insert-changelog-template()
-  (interactive)
-  (insert "\n\t* weight:\n\t* breakfast:\n\t* weather:\n\t* ssi:\n\t- 9:00in\n\t-\n\t* lunch:\n\t-\n\t- 19:30out\n\t* dinner:\n"))
-(define-key global-map "\C-cl" `insert-changelog-template)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
