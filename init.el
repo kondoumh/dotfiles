@@ -90,7 +90,6 @@
       "/bin"
       "/usr/bin"
       "/usr/local/bin"
-      "/Library/Java/scala-2.10.0/bin"
        (expand-file-name "~/bin")
        (expand-file-name "~/.emacs.d/bin")
     )
@@ -151,29 +150,6 @@
 ;; transparency
 (set-frame-parameter nil 'alpha 0.80)
 
-;; colors
-;;(if window-system
-;;  (progn
-    ;; fornt
-;;    (add-to-list 'default-frame-alist '(foreground-color . "white"))
-    ;; background
-;;    (add-to-list 'default-frame-alist '(background-color . "navy"))
-    ;; cursor
-;;    (add-to-list 'default-frame-alist '(cursor-color . "yellow"))
-    ;; mouse pointer
-;;    (add-to-list 'default-frame-alist '(mouse-color . "SlateBlue2"))
-    ;; selected region
-;;    (set-face-background 'region "deeppink1")
-;;  )
-;;)
-
-;; (load-theme 'misterioso t)
-
-;; htmlize
-(autoload 'htmlize-buffer "htmlize" "Convert BUFFER to HTML, preserving colors and decorations." t)
-(autoload 'htmlize-region "htmlize" "Convert the region to HTML, preserving colors and decorations." t)
-(autoload 'htmlize-file "htmlize" "Load FILE, fontify it, convert it to HTML, and save the result." t)
-
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-clarity)
@@ -219,22 +195,10 @@
 (setq org-startup-truncated nil)
 (setq org-return-follows-link t)
 (setq org-todo-keywords '((type "TODO(t)" "DOING(i)" "|" "DONE(d)" "SOMEDAY(s)" "WON'T(w)")))
-(setq org-directory "~/Dropbox/org")
-(setq org-agenda-files '("~/Dropbox/org/todo.org"))
-
-(setq org-capture-templates
-   '(("t" "Todo" entry (file+headline "~/Dropbox/org/todo.org" "Tasks") "* TODO %?n %in %a")
-     ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org") "* %?n %Un %in %a")
-     ("n" "Note" entry (file+headline "~/Dropbox/org/notes.org" "Notes") "* %?n %Un %i")
-    )
-)
 
 ;; web-mode
 (require 'web-mode)
 ;;; file types
-(add-to-list 'auto-mode-alist '("\\.jsp$"       . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x$"   . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb$"       . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?$"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js$"       . web-mode))
 ;;; indent
@@ -243,9 +207,6 @@
   (setq web-mode-html-offset   2)
   (setq web-mode-css-offset    2)
   (setq web-mode-script-offset 2)
-  (setq web-mode-php-offset    2)
-  (setq web-mode-java-offset   2)
-  (setq web-mode-asp-offset    2))
 (add-hook 'web-mode-hook 'web-mode-hook)
 
 ;; typescript-mode
@@ -284,134 +245,10 @@
 (add-hook 'python-mode-hook
   '(lambda ()
     (hs-minor-mode 1)))
-;;; CoffeeScript coding style
-(add-hook 'coffee-mode-hook
-  '(lambda ()
-    (hs-minor-mode 1)))
 (define-key
   global-map
   (kbd "C-#") 'hs-toggle-hiding)
 
-;; frames
-;;(setq default-frame-alist
-;;  (append (list
-;;    '(left . 500)
-;;    '(top  . 10)
-;;    '(width  .  110)
-;;    '(height .  55)
-;;  )
-;;  default-frame-alist))
-
-;; divide window
-(defun split-window-vertically-n (num_wins)
-  (interactive "p")
-  (if (= num_wins 2)
-      (split-window-vertically)
-    (progn
-      (split-window-vertically
-       (- (window-height) (/ (window-height) num_wins)))
-      (split-window-vertically-n (- num_wins 1)))))
-(defun split-window-horizontally-n (num_wins)
-  (interactive "p")
-  (if (= num_wins 2)
-      (split-window-horizontally)
-    (progn
-      (split-window-horizontally
-       (- (window-width) (/ (window-width) num_wins)))
-      (split-window-horizontally-n (- num_wins 1)))))
-
-(defun other-window-or-split()
-  (interactive)
-  (when (one-window-p)
-	(if (>= (window-body-width) 270)
-	  (split-window-horizontally-n 3)
-	(split-window-horizontally)))
-  (other-window 1))
-
-(global-set-key (kbd "C-t") 'other-window-or-split)
-
 ;; autopair
-(require 'autopair)
-(autopair-global-mode)
-
-;; devide window on startup
-;;(add-hook 'after-init-hook (lambda()
-;;  (setq w1 (selected-window))
-;;  (setq w2 (split-window-vertically))
-;;  (select-window w2)
-;;  (eshell)
-;;  (select-window w1))
-;;)
-
-
- ;; scroll one line at a time (less "jumpy" than defaults) 
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
-(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-(setq scroll-step 1) ;; keyboard scroll one line at a time
-(setq scroll-conservatively 10000)
-
-;; tabbar
-(require 'tabbar)
-(tabbar-mode 1)
-(tabbar-mwheel-mode -1)
-(setq tabbar-buffer-groups-function nil)
-
-(defun my-tabbar-buffer-list ()
-  (remove-if
-  (lambda (buffer)
-  (find (aref (buffer-name buffer) 0) " *"))
-  (buffer-list)))
-(setq tabbar-buffer-list-function 'my-tabbar-buffer-list)
-
-(dolist (btn '(tabbar-buffer-home-button
-               tabbar-scroll-left-button
-               tabbar-scroll-right-button))
-  (set btn (cons (cons "" nil)
-                 (cons "" nil))))
-(setq tabbar-separator '(1.5))
-(set-face-attribute
- 'tabbar-default nil
- :family "Monaco"
- :background "black"
- :foreground "gray72"
- :height 1.0)
-(set-face-attribute
- 'tabbar-unselected nil
- :background "black"
- :foreground "grey72"
- :box nil)
-(set-face-attribute
- 'tabbar-selected nil
- :background "black"
- :foreground "yellow"
- :box nil)
-(set-face-attribute
- 'tabbar-button nil
- :box nil)
-(set-face-attribute
- 'tabbar-separator nil
- :height 1.5)
-
-;; 日付
-(defun insert-date ()
-   (interactive)
-   (let ((format "\n%Y-%m-%d %a  <kondoh@local>\n")
-         (system-time-locale "ja_JP"))
-   (insert (format-time-string format))))
-(define-key global-map "\C-cd" `insert-date)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-	(web-mode typescript-mode tabbar rust-mode recentf-ext org markdown-mode htmlize haskell-mode go-mode color-theme coffee-mode autopair auto-save-buffers-enhanced auto-complete))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;;(require 'autopair)
+;;(autopair-global-mode)
