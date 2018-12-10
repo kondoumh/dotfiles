@@ -1,4 +1,4 @@
-;; load-path を追加する関数を定義
+;; add load-path
 (defun add-to-load-path (&rest paths)
   (let (path)
     (dolist (path paths paths)
@@ -7,20 +7,17 @@
   (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
     (normal-top-level-add-subdirs-to-load-path))))))
 
-;; elisp と conf ディレクトリをサブディレクトリごと load-path に追加
 (add-to-load-path "elisp" "conf")
 
 (setq byte-compile-warnings '(not free-vars))
 
 ;; (install-elisp "http://www.emacswiki.org/emacs/download/auto-install.el")
 (when (require 'auto-install nil t)
-  ;; インストールディレクトリの設定 初期値は ~/.emacs.d/auto-install/
   (setq auto-install-directory "~/.emacs.d/elisp/")
-  ;; EmacsWiki に登録されている elisp の名前を取得する
   (auto-install-update-emacswiki-package-name t)
-  ;; 必要であればプロキシの設定を行う
+  ;; proxy settings if needed
   ;; (setq url-proxy-services '(("http" . "localhost:8339")))
-  ;; install-elisp の関数を利用可能にする
+  ;; enable install-elisp functions
   (auto-install-compatibility-setup))
 
 ;; package.el
@@ -29,36 +26,35 @@
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
-;; スタートアップ非表示
+;; disable startup
 (setq inhibit-startup-screen t)
-;; 起動画面削除
 (setq inhibit-startup-message t)
 
-;; ツールバー非表示
+;; disable toolbar
 (if (display-graphic-p)
   (tool-bar-mode 0))
 
-;; ファイルのフルパスをタイトルバーに表示
+;; show file path on title 
 (setq frame-title-format (format "%%f - Emacs@%s" (system-name)))
 
 ;; scroll-bar-mode
 (if (display-graphic-p)
   (scroll-bar-mode -1))
 
-;; クリップボード共有
+;; share clipboard
 (setq x-select-enable-clipboard t)
 
 ;;dired
 (require 'ffap)
 (ffap-bindings)
 
-;; キーバインド
-;;; バッファ移動
+;; key bindings
+;;; switch buffer 
 (windmove-default-keybindings 'super)
-;;; カーソルキー固定スクロール
+;;; cursor scroll
 (global-set-key "\M-n" (lambda () (interactive) (scroll-up 1)))
 (global-set-key "\M-p" (lambda () (interactive) (scroll-down 1)))
-;;; C-h を Backspace に
+;;; C-h to Backspace
 (global-set-key "\C-h" 'delete-backward-char)
 
 (add-hook 'term-setup-hook
@@ -85,7 +81,7 @@
 (setq file-name-coding-system 'utf-8-hfs)
 (setq locale-coding-system 'utf-8-hfs)
 
-;; path 環境変数
+;; path environments
 (dolist
   (dir
     (list
@@ -103,7 +99,7 @@
    (setenv "PATH" (concat dir ":" (getenv "PATH")))
    (setq exec-path (append (list dir) exec-path))))
 
-;; フォント
+;; font settings
 (if (display-graphic-p)
 (set-face-attribute 'default nil :family "monaco" :height 120))
 (if (display-graphic-p)
@@ -130,45 +126,43 @@
       (".*monaco cy-bold-.*-mac-cyrillic" . 0.9) (".*monaco-bold-.*-mac-roman" . 0.9)
       ("-cdac$" . 1.3))))
 
-;; カレントディレクトリをホームディレクトリに設定
+;; current dir
 (cd "~/")
 
-;; バックアップを残さない
+;; no backup files
 (setq make-backup-files nil)
 
-;; 括弧の範囲内を強調表示
+;; emphasize between brackets
 (setq show-paren-delay 0.125)
 (show-paren-mode t)
 (setq show-paren-style 'expression)
-
-;; 括弧の範囲色
 ;; (set-face-background 'show-paren-match-face "#800")
 
-;; 選択領域の色
+;; color of selected
 (set-face-background 'region "#555")
 
-;; 改行で auto indent
+;; auto indent on newline
 (global-set-key "\C-m" 'newline-and-indent)
 (global-set-key "\C-j" 'newline)
 
-;; バッファの Kill で確認しない
+;; no confirmation on kill buffers
 (global-set-key [(control x) (k)] 'kill-this-buffer)
 
-;; カレントウィンドウの透明度を変更する
+;; transparency
 (set-frame-parameter nil 'alpha 0.80)
 
-;;ディスプレイ関係
+;; colors
 ;;(if window-system
 ;;  (progn
-    ;; 文字色
+    ;; fornt
 ;;    (add-to-list 'default-frame-alist '(foreground-color . "white"))
-    ;; 背景色
+    ;; background
 ;;    (add-to-list 'default-frame-alist '(background-color . "navy"))
-    ;; カーソル色
+    ;; cursor
 ;;    (add-to-list 'default-frame-alist '(cursor-color . "yellow"))
-    ;; マウスポインタ色
+    ;; mouse pointer
 ;;    (add-to-list 'default-frame-alist '(mouse-color . "SlateBlue2"))
-    ;; 選択中のリージョン色
+    ;; selected region
 ;;    (set-face-background 'region "deeppink1")
 ;;  )
 ;;)
@@ -193,9 +187,9 @@
 (recentf-mode 1)
 (setq recentf-max-menu-items 20)
 (setq recentf-max-saved-items 20)
-;;; 最近編集したファイルリスト呼び出し
+;;; recent files�
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
-;;; 起動画面で recentf を開く
+;;; show recent files list on startup
 (add-hook 'after-init-hook (lambda()
   (recentf-open-files)
 ))
@@ -239,13 +233,13 @@
 
 ;; web-mode
 (require 'web-mode)
-;;; 適用する拡張子
+;;; file types
 (add-to-list 'auto-mode-alist '("\\.jsp$"       . web-mode))
 (add-to-list 'auto-mode-alist '("\\.as[cp]x$"   . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$"       . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?$"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js$"       . web-mode))
-;;; インデント数
+;;; indent
 (defun web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-html-offset   2)
@@ -294,7 +288,7 @@
   (revert-buffer nil t)
 )
 
-;; バッファリロード
+;; reload buffer
 (global-set-key "\C-c\C-r" 'revert-buffer-force)
  
 ;; folding
@@ -326,7 +320,7 @@
   global-map
   (kbd "C-#") 'hs-toggle-hiding)
 
-;; フレーム
+;; frames
 ;;(setq default-frame-alist
 ;;  (append (list
 ;;    '(left . 500)
@@ -336,7 +330,7 @@
 ;;  )
 ;;  default-frame-alist))
 
-;; Window 分割ユーティリティ
+;; divide window
 (defun split-window-vertically-n (num_wins)
   (interactive "p")
   (if (= num_wins 2)
@@ -368,7 +362,7 @@
 (require 'autopair)
 (autopair-global-mode)
 
-;; 起動時のウィンドウ分割
+;; devide window on startup
 ;;(add-hook 'after-init-hook (lambda()
 ;;  (setq w1 (selected-window))
 ;;  (setq w2 (split-window-vertically))
@@ -435,7 +429,7 @@
    (insert (format-time-string format))))
 (define-key global-map "\C-cd" `insert-date)
 
-;; ChangeLog テンプレ
+;; ChangeLog template
 (defun insert-changelog-template()
   (interactive)
   (insert "\n\t* weight:\n\t* breakfast:\n\t* weather:\n\t* ssi:\n\t- 9:00in\n\t-\n\t* lunch:\n\t-\n\t- 19:30out\n\t* dinner:\n"))
