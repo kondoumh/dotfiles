@@ -150,10 +150,6 @@
 ;; transparency
 (set-frame-parameter nil 'alpha 0.80)
 
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-clarity)
-
 ;; recentf-ext
 (require 'recentf-ext)
 (setq recentf-max-saved-items 2000)
@@ -171,9 +167,9 @@
 ))
 
 ;; auto-save-buffers
-(require 'auto-save-buffers-enhanced)
-(setq auto-save-buffers-enhanced-interval 1)
-(auto-save-buffers-enhanced t)
+;;(require 'auto-save-buffers-enhanced)
+;;(setq auto-save-buffers-enhanced-interval 1)
+;;(auto-save-buffers-enhanced t)
 
 ;; default-tab-width
 (setq default-tab-width 4)
@@ -224,31 +220,6 @@
 ;; reload buffer
 (global-set-key "\C-c\C-r" 'revert-buffer-force)
  
-;; folding
-;;; C coding style
-(add-hook 'c-mode-hook
-  '(lambda ()
-    (hs-minor-mode 1)))
-;;; Scheme coding style
-(add-hook 'scheme-mode-hook
-  '(lambda ()
-    (hs-minor-mode 1)))
-;;; Elisp coding style
-(add-hook 'emacs-lisp-mode-hook
-  '(lambda ()
-    (hs-minor-mode 1)))
-;;; Lisp coding style
-(add-hook 'lisp-mode-hook
-  '(lambda ()
-    (hs-minor-mode 1)))
-;;; Python coding style
-(add-hook 'python-mode-hook
-  '(lambda ()
-    (hs-minor-mode 1)))
-(define-key
-  global-map
-  (kbd "C-#") 'hs-toggle-hiding)
-
 ;; autopair
 ;;(require 'autopair)
 ;;(autopair-global-mode)
