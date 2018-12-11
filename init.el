@@ -22,7 +22,10 @@
 
 ;; package.el
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
@@ -167,9 +170,9 @@
 ))
 
 ;; auto-save-buffers
-;;(require 'auto-save-buffers-enhanced)
-;;(setq auto-save-buffers-enhanced-interval 1)
-;;(auto-save-buffers-enhanced t)
+(require 'auto-save-buffers-enhanced)
+(setq auto-save-buffers-enhanced-interval 1)
+(auto-save-buffers-enhanced t)
 
 ;; default-tab-width
 (setq default-tab-width 4)
@@ -221,5 +224,23 @@
 (global-set-key "\C-c\C-r" 'revert-buffer-force)
  
 ;; autopair
-;;(require 'autopair)
-;;(autopair-global-mode)
+(require 'autopair)
+(autopair-global-mode)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org color-theme autopair auto-complete))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+(ivy-mode 1)
+(counsel-mode 1)
