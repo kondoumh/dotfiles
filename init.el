@@ -135,10 +135,9 @@
 (setq make-backup-files nil)
 
 ;; emphasize between brackets
-(setq show-paren-delay 0.125)
-(show-paren-mode t)
-(setq show-paren-style 'expression)
-;; (set-face-background 'show-paren-match-face "#800")
+;; (setq show-paren-delay 0.125)
+;; (show-paren-mode t)
+;; (setq show-paren-style 'expression)
 
 ;; color of selected
 (set-face-background 'region "#555")
@@ -149,9 +148,6 @@
 
 ;; no confirmation on kill buffers
 (global-set-key [(control x) (k)] 'kill-this-buffer)
-
-;; transparency
-(set-frame-parameter nil 'alpha 0.80)
 
 ;; recentf-ext
 (require 'recentf-ext)
@@ -214,18 +210,12 @@
 ;; backslash
 (define-key global-map [?\M-¥] "\\")
 
-;; revert-buffer without asking
-(defun revert-buffer-force()
-  (interactive)
-  (revert-buffer nil t)
-)
-
-;; reload buffer
-(global-set-key "\C-c\C-r" 'revert-buffer-force)
- 
 ;; autopair
 (require 'autopair)
 (autopair-global-mode)
+
+(ivy-mode 1)
+(counsel-mode 1)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -242,5 +232,3 @@
  ;; If there is more than one, they won't work right.
  )
 
-(ivy-mode 1)
-(counsel-mode 1)
