@@ -135,9 +135,8 @@
 (setq make-backup-files nil)
 
 ;; emphasize between brackets
-;; (setq show-paren-delay 0.125)
-;; (show-paren-mode t)
-;; (setq show-paren-style 'expression)
+(show-paren-mode 1)
+(setq show-paren-delay 0)
 
 ;; color of selected
 (set-face-background 'region "#555")
