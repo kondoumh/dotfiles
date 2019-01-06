@@ -203,6 +203,11 @@
   (setq web-mode-script-offset 2)
 (add-hook 'web-mode-hook 'web-mode-hook))
 
+(require 'go-mode)
+(add-hook 'go-mode-hook
+	  '(lambda ()
+	     (setq tab-width 2)))
+
 ;; typescript-mode
 (require 'typescript-mode)
 
@@ -223,7 +228,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org color-theme autopair auto-complete))))
+    (go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org color-theme autopair auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
