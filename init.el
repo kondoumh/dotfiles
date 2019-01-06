@@ -203,6 +203,7 @@
   (setq web-mode-script-offset 2)
 (add-hook 'web-mode-hook 'web-mode-hook))
 
+;; go-mode
 (require 'go-mode)
 (add-hook 'go-mode-hook
 	  '(lambda ()
