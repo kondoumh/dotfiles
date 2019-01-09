@@ -209,6 +209,10 @@
 	  '(lambda ()
 	     (setq tab-width 2)))
 
+;; rust-mode
+(require 'rust-mode)
+(add-to-list 'auto-mode-alist '("\\.rs\\'"  . rust-mode))
+
 ;; typescript-mode
 (require 'typescript-mode)
 
@@ -229,7 +233,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org color-theme autopair auto-complete))))
+    (ivy swiper go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org color-theme autopair auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
