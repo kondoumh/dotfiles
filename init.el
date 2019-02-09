@@ -11,15 +11,6 @@
 
 (setq byte-compile-warnings '(not free-vars))
 
-;; (install-elisp "http://www.emacswiki.org/emacs/download/auto-install.el")
-(when (require 'auto-install nil t)
-  (setq auto-install-directory "~/.emacs.d/elisp/")
-  (auto-install-update-emacswiki-package-name t)
-  ;; proxy settings if needed
-  ;; (setq url-proxy-services '(("http" . "localhost:8339")))
-  ;; enable install-elisp functions
-  (auto-install-compatibility-setup))
-
 ;; package.el
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -102,7 +93,7 @@
    (setq exec-path (append (list dir) exec-path))))
 
 ;; current dir
-;; (cd "~/")
+(cd "~/")
 
 ;; no backup files
 (setq make-backup-files nil)
@@ -146,9 +137,16 @@
 (setq default-tab-width 4)
 
 ;; auto-complete
-(use-package auto-complete)
-(use-package auto-complete-config)
-(global-auto-complete-mode t)
+;; (use-package auto-complete)
+;; (use-package auto-complete-config)
+;; (global-auto-complete-mode t)
+
+;; company
+(use-package company)
+(global-company-mode)
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 2)
+(setq company-selection-wrap-around t)
 
 ;; markdown-mode
 (autoload 'markdown-mode "markdown-mode"
@@ -163,39 +161,17 @@
 (setq org-return-follows-link t)
 (setq org-todo-keywords '((type "TODO(t)" "DOING(i)" "|" "DONE(d)" "SOMEDAY(s)" "WON'T(w)")))
 
-;; web-mode
-(use-package web-mode)
-;;; file types
-(add-to-list 'auto-mode-alist '("\\.html?$"     . web-mode))
-(add-to-list 'auto-mode-alist '("\\.js$"       . web-mode))
-;;; indent
-(defun web-mode-hook ()
-  "Hooks for Web mode."
-  (setq web-mode-html-offset   2)
-  (setq web-mode-css-offset    2)
-  (setq web-mode-script-offset 2)
-(add-hook 'web-mode-hook 'web-mode-hook))
-
-;; go-mode
-(use-package go-mode)
-(add-hook 'go-mode-hook
-	  '(lambda ()
-	     (setq tab-width 2)))
-
 ;; rust-mode
-;;(require 'rust-mode)
-;;(add-to-list 'auto-mode-alist '("\\.rs\\'"  . rust-mode))
-
-;; rustic
-(use-package rustic
-  :ensure t
-  :defer t
-  :init
-  :mode ("\\.rs$" . rustic-mode)
- )
-
-;; typescript-mode
-(use-package typescript-mode)
+(use-package rust-mode)
+(add-to-list 'exec-path(expand-file-name "~/.cargo/bin/"))
+(add-to-list 'auto-mode-alist '("\\.rs\\'"  . rust-mode))
+(add-hook 'rust-mode-hook (lambda()
+			    (racer-mode)))
+(add-hook 'racer-mode-hook #'eldoc-mode)
+(add-hook 'racer-mode-hook (lambda()
+			     (company-mode)
+			     (set (make-variable-buffer-local 'company-idle-delay) 0.1)
+			     (set (make-variable-buffer-local 'company-minimum-prefix-length) 0)))
 
 ;; backslash
 (define-key global-map [?\M-¥] "\\")
@@ -214,7 +190,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (use-package lsp-mode rustic ivy swiper go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org color-theme autopair auto-complete))))
+    (racer company use-package lsp-mode rustic ivy swiper go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org autopair))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
