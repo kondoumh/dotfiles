@@ -48,7 +48,7 @@
 (setq x-select-enable-clipboard t)
 
 ;;dired
-(require 'ffap)
+(use-package ffap)
 (ffap-bindings)
 
 ;; key bindings
@@ -80,7 +80,7 @@
 (setq system-time-locale "C")
 
 ;; file name encoding
-(require 'ucs-normalize)
+(use-package ucs-normalize)
 (setq file-name-coding-system 'utf-8-hfs)
 (setq locale-coding-system 'utf-8-hfs)
 
@@ -101,35 +101,8 @@
    (setenv "PATH" (concat dir ":" (getenv "PATH")))
    (setq exec-path (append (list dir) exec-path))))
 
-;; font settings
-(if (display-graphic-p)
-(set-face-attribute 'default nil :family "monaco" :height 120))
-(if (display-graphic-p)
-(set-fontset-font
-  (frame-parameter nil 'font)
-    'japanese-jisx0208
-    '("Hiragino Kaku Gothic ProN" . "iso10646-1")))
-(if (display-graphic-p)
-(set-fontset-font
-  (frame-parameter nil 'font)
-    'japanese-jisx0212
-    '("Hiragino Kaku Gothic ProN" . "iso10646-1")))
-(if (display-graphic-p)
-(set-fontset-font
-  (frame-parameter nil 'font)
-    'mule-unicode-0100-24ff
-    '("monaco" . "iso10646-1")))
-(if (display-graphic-p)
-(setq face-font-rescale-alist
-    '(("^-apple-hiragino.*" . 1.2)
-      (".*osaka-bold.*" . 1.2)
-      (".*osaka-medium.*" . 1.2)
-      (".*courier-bold-.*-mac-roman" . 1.0)
-      (".*monaco cy-bold-.*-mac-cyrillic" . 0.9) (".*monaco-bold-.*-mac-roman" . 0.9)
-      ("-cdac$" . 1.3))))
-
 ;; current dir
-(cd "~/")
+;; (cd "~/")
 
 ;; no backup files
 (setq make-backup-files nil)
@@ -149,7 +122,7 @@
 (global-set-key [(control x) (k)] 'kill-this-buffer)
 
 ;; recentf-ext
-(require 'recentf-ext)
+(use-package recentf-ext)
 (setq recentf-max-saved-items 2000)
 (setq recentf-exclude '(".recentf"))
 (setq recentf-auto-cleanup 10)
@@ -165,7 +138,7 @@
 ))
 
 ;; auto-save-buffers
-(require 'auto-save-buffers-enhanced)
+(use-package auto-save-buffers-enhanced)
 (setq auto-save-buffers-enhanced-interval 1)
 (auto-save-buffers-enhanced t)
 
@@ -173,8 +146,8 @@
 (setq default-tab-width 4)
 
 ;; auto-complete
-(require 'auto-complete)
-(require 'auto-complete-config)
+(use-package auto-complete)
+(use-package auto-complete-config)
 (global-auto-complete-mode t)
 
 ;; markdown-mode
@@ -191,7 +164,7 @@
 (setq org-todo-keywords '((type "TODO(t)" "DOING(i)" "|" "DONE(d)" "SOMEDAY(s)" "WON'T(w)")))
 
 ;; web-mode
-(require 'web-mode)
+(use-package web-mode)
 ;;; file types
 (add-to-list 'auto-mode-alist '("\\.html?$"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js$"       . web-mode))
@@ -204,23 +177,31 @@
 (add-hook 'web-mode-hook 'web-mode-hook))
 
 ;; go-mode
-(require 'go-mode)
+(use-package go-mode)
 (add-hook 'go-mode-hook
 	  '(lambda ()
 	     (setq tab-width 2)))
 
 ;; rust-mode
-(require 'rust-mode)
-(add-to-list 'auto-mode-alist '("\\.rs\\'"  . rust-mode))
+;;(require 'rust-mode)
+;;(add-to-list 'auto-mode-alist '("\\.rs\\'"  . rust-mode))
+
+;; rustic
+(use-package rustic
+  :ensure t
+  :defer t
+  :init
+  :mode ("\\.rs$" . rustic-mode)
+ )
 
 ;; typescript-mode
-(require 'typescript-mode)
+(use-package typescript-mode)
 
 ;; backslash
 (define-key global-map [?\M-¥] "\\")
 
 ;; autopair
-(require 'autopair)
+(use-package autopair)
 (autopair-global-mode)
 
 (ivy-mode 1)
@@ -233,7 +214,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ivy swiper go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org color-theme autopair auto-complete))))
+    (use-package lsp-mode rustic ivy swiper go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org color-theme autopair auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
