@@ -173,6 +173,9 @@
 			     (set (make-variable-buffer-local 'company-idle-delay) 0.1)
 			     (set (make-variable-buffer-local 'company-minimum-prefix-length) 0)))
 
+;; dockerfile-mode
+(use-package dockerfile-mode)
+
 ;; backslash
 (define-key global-map [?\M-¥] "\\")
 
@@ -190,7 +193,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (racer company use-package lsp-mode rustic ivy swiper go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org autopair))))
+    (dockerfile-mode racer company use-package lsp-mode rustic ivy swiper go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org autopair))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
