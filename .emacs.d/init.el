@@ -65,7 +65,6 @@
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-keyboard-coding-system 'utf-8)
-(setq default-file-name-coding-system 'shift_jis) ;dired文字化け対策
 
 ;; sytem-time-locale
 (setq system-time-locale "C")
@@ -136,11 +135,6 @@
 ;; default-tab-width
 (setq default-tab-width 4)
 
-;; auto-complete
-;; (use-package auto-complete)
-;; (use-package auto-complete-config)
-;; (global-auto-complete-mode t)
-
 ;; company
 (use-package company)
 (global-company-mode)
@@ -193,7 +187,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yaml-mode dockerfile-mode racer company use-package lsp-mode rustic ivy swiper go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org autopair))))
+    (dockerfile-mode yaml-mode racer company use-package lsp-mode rustic ivy swiper go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org autopair))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
