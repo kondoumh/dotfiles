@@ -167,6 +167,12 @@
 			     (set (make-variable-buffer-local 'company-idle-delay) 0.1)
 			     (set (make-variable-buffer-local 'company-minimum-prefix-length) 0)))
 
+;; go-mode
+(use-package go-mode)
+(add-hook 'go-mode-hook
+	  '(lambda ()
+	     (setq tab-width 2)))
+
 ;; dockerfile-mode
 (use-package dockerfile-mode)
 
