@@ -69,6 +69,13 @@
     (define-key function-key-map "\e[1;9C" [M-right])
     (define-key function-key-map "\e[1;9D" [M-left])))
 
+;; revert-buffer without asking
+(defun revert-buffer-force()
+  (interactive)
+  (revert-buffer nil t)
+)
+(global-set-key "\C-c\C-r" 'revert-buffer-force)
+
 ;; language
 (set-language-environment 'Japanese)
 
