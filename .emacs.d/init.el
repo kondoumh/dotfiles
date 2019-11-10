@@ -38,9 +38,20 @@
 ;; share clipboard
 (setq x-select-enable-clipboard t)
 
-;;dired
+;; dired
 (use-package ffap)
 (ffap-bindings)
+
+;; theme and fonts
+(if window-system (progn
+  (load-theme 'misterioso t)
+  (when (eq system-type 'darwin)
+    (add-to-list 'default-frame-alist '(font . "Menlo-14"))
+  )
+  (when (eq system-type 'windows-nt)
+    (add-to-list 'default-frame-alist '(font . "Consolas-14"))
+  )
+))
 
 ;; key bindings
 ;;; switch buffer 
