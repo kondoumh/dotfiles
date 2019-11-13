@@ -204,6 +204,14 @@
 (ivy-mode 1)
 (counsel-mode 1)
 
+;; insert date
+(defun insert-date ()
+   (interactive)
+   (let ((format "%Y-%m-%d %a  <kondoh@local>\n\n")
+         (system-time-locale "ja_JP"))
+   (insert (format-time-string format))))
+(define-key global-map "\C-cd" `insert-date)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
