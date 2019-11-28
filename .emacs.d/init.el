@@ -190,6 +190,8 @@
 (add-hook 'go-mode-hook
 	  '(lambda ()
 	     (setq tab-width 2)))
+(add-hook 'go-mode-hook 'go-eldoc-setup)
+(add-to-list 'company-backends 'company-go)
 
 ;; dockerfile-mode
 (use-package dockerfile-mode)
@@ -219,7 +221,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (dockerfile-mode yaml-mode racer company use-package lsp-mode rustic ivy swiper go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org autopair))))
+    (company-go go-eldoc dockerfile-mode yaml-mode racer company use-package lsp-mode rustic ivy swiper go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org autopair))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
