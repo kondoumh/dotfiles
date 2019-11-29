@@ -191,6 +191,7 @@
 	  '(lambda ()
 	     (setq tab-width 2)))
 (add-hook 'go-mode-hook 'go-eldoc-setup)
+(add-hook 'before-save-hook 'gofmt-before-save)
 (add-to-list 'company-backends 'company-go)
 
 ;; dockerfile-mode
