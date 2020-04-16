@@ -190,9 +190,19 @@
 (add-hook 'go-mode-hook
 	  '(lambda ()
 	     (setq tab-width 2)))
+(add-hook 'go-mode-hook 'go-eldoc-setup)
+(add-hook 'before-save-hook 'gofmt-before-save)
+(add-to-list 'company-backends 'company-go)
 
 ;; dockerfile-mode
 (use-package dockerfile-mode)
+
+;; web-mode
+(use-package web-mode)
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+(add-hook 'web-mode-hook '(lambda ()
+                            (setq web-mode-code-indent-offset 2)))
 
 ;; backslash
 (define-key global-map [?\M-¥] "\\")
@@ -219,7 +229,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (dockerfile-mode yaml-mode racer company use-package lsp-mode rustic ivy swiper go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org autopair))))
+    (company-go go-eldoc dockerfile-mode yaml-mode racer company use-package lsp-mode rustic ivy swiper go-mode rust-mode markdown-mode auto-save-buffers-enhanced counsel web-mode typescript-mode recentf-ext org autopair))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
